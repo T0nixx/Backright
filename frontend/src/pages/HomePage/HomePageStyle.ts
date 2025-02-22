@@ -6,6 +6,7 @@ export const HomePageContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-left: 4rem;
   padding: 3.25rem;
   background-color: var(--navy-100);
 `;
