@@ -1,26 +1,19 @@
 import styled from "styled-components";
 
-export const SessionLogContainer = styled.div.withConfig({
-  shouldForwardProp: (prop) => !["$isSelected"].includes(prop),
-})<{ $isSelected: boolean }>`
+export const SessionLogContainer = styled.div`
   display: flex;
   gap: 0.75rem;
+
   padding: 0.75rem 0 0.75rem 0.75rem;
   border-radius: 12px;
-  cursor: pointer;
-  background-color: ${({ $isSelected }) =>
-    $isSelected ? "rgba(118, 171, 174, 0.8)" : "transparent"};
 
   &:hover {
-    background-color: rgba(118, 171, 174, 0.8);
-  }
+    cursor: pointer;
+    background: rgba(118, 171, 174, 0.8);
 
-  span {
-    color: ${({ $isSelected }) => ($isSelected ? "var(--white)" : "inherit")};
-  }
-
-  &:hover span {
-    color: var(--white);
+    span {
+      color: var(--white);
+    }
   }
 `;
 
