@@ -35,22 +35,22 @@ public class RTCPeerConnectionHandler implements PeerConnectionObserver {
 	private RTCPeerConnection localPeerConnection;
 	private final String rtcSessionId;
 	private RTCDataChannel localDataChannel;
-	private final RTCPeerConnectionManager manager;
 
 	private final String websocketSessionId;
 	private final IceCandidateListener iceCandidateListener;
 
 	private final Logger logger = LoggerFactory.getLogger(RTCPeerConnectionHandler.class);
 	private final PoseAnalyzer poseAnalyzer;
+	private final PeerConnectionEndListener connectionEndListener;
 
 	public RTCPeerConnectionHandler(PeerConnectionFactory factory, String websocketSessionId,
 		IceCandidateListener iceCandidateListener,
 		PoseAnalyzerFactory poseAnalyzerFactory, String providerId, String rtcSessionId,
-		RTCPeerConnectionManager mananger) {
+		PeerConnectionEndListener connectionEndListener) {
 		this.websocketSessionId = websocketSessionId;
 		this.iceCandidateListener = iceCandidateListener;
 		this.rtcSessionId = rtcSessionId;
-		this.manager = mananger;
+		this.connectionEndListener = connectionEndListener;
 		RTCConfiguration config = new RTCConfiguration();
 		RTCIceServer iceServer = new RTCIceServer();
 		iceServer.urls.add("turn:i12a601.p.ssafy.io:3478");
@@ -103,7 +103,9 @@ public class RTCPeerConnectionHandler implements PeerConnectionObserver {
 				logger.info("Data Channel State is changed into {}", state);
 				if (state == RTCDataChannelState.CLOSED) {
 					poseAnalyzer.endSession();
-					manager.removePeerConnection(rtcSessionId);
+					if (connectionEndListener != null) {
+						connectionEndListener.onConnectionEnded(rtcSessionId);
+					}
 				}
 			}
 
@@ -120,7 +122,9 @@ public class RTCPeerConnectionHandler implements PeerConnectionObserver {
 					sendTextMessage(response.toJSONString());
 
 					if (response.getResponseType() == ResponseType.DISCONNECT_RESPONSE) {
-						manager.removePeerConnection(rtcSessionId);
+						if (connectionEndListener != null) {
+							connectionEndListener.onConnectionEnded(rtcSessionId);
+						}
 						close(); // 세션 종료
 					}
 				} catch (Exception e) {
