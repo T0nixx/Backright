@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const DoughnutGraphContainer = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  width: 100%;
   height: 100%;
 `;
 
@@ -16,9 +16,8 @@ export const DoughnutGraph = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   width: 85%;
-  height: 75%;
+  aspect-ratio: 1;
 `;
 
 export const CenterText = styled.div`

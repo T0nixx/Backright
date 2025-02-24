@@ -1,15 +1,15 @@
 import { convertISOToTimeRangeString } from "../../utils/timeFormatUtils";
-
 import { SessionType } from "../../types/reportType";
-
 import * as S from "./SessionLogStyle";
 
 interface SessionLogProps {
   session: SessionType;
+  isSelected: boolean;
+  onClick: () => void;
 }
 
-const SessionLog = ({ session }: SessionLogProps) => (
-  <S.SessionLogContainer>
+const SessionLog = ({ session, isSelected, onClick }: SessionLogProps) => (
+  <S.SessionLogContainer $isSelected={isSelected} onClick={onClick}>
     <S.TimeCircle />
     <S.SessionDetail>
       <S.SessionTime>
