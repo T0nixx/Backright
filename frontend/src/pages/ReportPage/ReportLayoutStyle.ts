@@ -5,6 +5,7 @@ export const ReportLayoutContainer = styled.div`
   justify-content: center;
   width: 100%;
   min-height: calc(100vh - 4rem);
+  margin-left: 4rem;
   padding: 2.5rem;
   background-color: var(--navy-100);
 `;

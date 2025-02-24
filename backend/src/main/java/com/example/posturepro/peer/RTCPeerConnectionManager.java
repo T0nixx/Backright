@@ -34,7 +34,7 @@ public class RTCPeerConnectionManager {
 		String rtcSessionId = UUID.randomUUID().toString();
 		RTCPeerConnectionHandler handler = new RTCPeerConnectionHandler(peerConnectionFactory, webSocketSessionId,
 			listener,
-			poseAnalyzerFactory, providerId);
+			poseAnalyzerFactory, providerId, rtcSessionId, this);
 		peerConnectionMap.put(rtcSessionId, handler);
 		logger.info("새로운 RTC Peer Connection 생성됨: " + rtcSessionId);
 		return rtcSessionId;
@@ -42,6 +42,10 @@ public class RTCPeerConnectionManager {
 
 	public RTCPeerConnectionHandler getPeerConnection(String rtcSessionId) {
 		return peerConnectionMap.get(rtcSessionId);
+	}
+
+	public void removePeerConnection(String rtcSessionId) {
+		this.peerConnectionMap.remove(rtcSessionId);
 	}
 
 	public void restartConnection(String rtcSessionId) {
