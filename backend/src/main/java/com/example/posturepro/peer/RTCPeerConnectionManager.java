@@ -16,7 +16,7 @@ import dev.onvoid.webrtc.media.audio.AudioDeviceModule;
 import dev.onvoid.webrtc.media.audio.AudioLayer;
 
 @Service
-public class RTCPeerConnectionManager {
+public class RTCPeerConnectionManager implements PeerConnectionEndListener {
 	private static final Logger logger = Logger.getLogger(RTCPeerConnectionManager.class.getName());
 
 	// 현재 활성화된 Peer Connection 핸들러를 저장하는 맵 (RTC sessionId -> RTCPeerConnectionHandler)
@@ -46,6 +46,12 @@ public class RTCPeerConnectionManager {
 
 	public void removePeerConnection(String rtcSessionId) {
 		this.peerConnectionMap.remove(rtcSessionId);
+	}
+
+	@Override
+	public void onConnectionEnded(String rtcSessionId) {
+		peerConnectionMap.remove(rtcSessionId);
+		logger.info("RTC Peer Connection 종료됨: " + rtcSessionId);
 	}
 
 	public void restartConnection(String rtcSessionId) {
