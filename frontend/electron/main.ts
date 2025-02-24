@@ -40,6 +40,7 @@ function createWindow() {
       backgroundThrottling: false,
     },
     show: false,
+    icon: path.join(__dirname, "../public/favicon.ico"),
   });
 
   win.setAspectRatio(12 / 8);
