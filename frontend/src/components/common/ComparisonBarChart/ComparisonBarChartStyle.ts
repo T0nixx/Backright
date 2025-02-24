@@ -6,6 +6,8 @@ export const ComparisonBarChartContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  height: 100%;
 `;
 
 export const BarGraph = styled.div`
@@ -26,11 +28,10 @@ export const DescriptionContainer = styled.p`
   gap: 0.5rem;
 `;
 
-export const Description = styled.p`
-  color: var(--gray-300);
+export const Description = styled.span`
+  font-size: 0.875rem;
 
   span {
-    color: var(--primary);
     font-weight: 700;
   }
 `;

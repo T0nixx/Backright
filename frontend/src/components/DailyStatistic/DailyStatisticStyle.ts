@@ -18,7 +18,9 @@ export const Title = styled.div`
 export const GraphContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 2px 1fr;
+  align-items: center;
   gap: 2rem;
+  min-height: 300px;
 `;
 
 export const Divider = styled.div`
